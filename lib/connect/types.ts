@@ -30,6 +30,7 @@ export type InstanceReview = {
   fields: InstanceField[];
   listeningEnabled: boolean;
   sprinklrFeatures: { name: string; on: boolean; note?: string }[];
+  apiSurfaces: { title: string; does: string; status: string }[];
   capabilities: CapabilityRow[];
 };
 
