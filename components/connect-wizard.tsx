@@ -203,8 +203,27 @@ export function ConnectWizard({
             </button>
             {advanced ? (
               <div className="rounded-lg bg-slate-50 px-3 py-3 text-sm text-slate-600">
-                <p>Live only. Demo does not need these.</p>
+                <p>Live only. Demo does not need these codes.</p>
                 <p className="mt-2 font-mono text-xs">SPRINKLR_CLIENT_ID · SPRINKLR_CLIENT_SECRET</p>
+                <p className="mt-3 font-medium text-[#0b1220]">Official Sprinklr developer pages</p>
+                <ul className="mt-1 list-disc space-y-1 pl-5">
+                  {[
+                    ["Current work APIs", "https://dev.sprinklr.com/api2-0"],
+                    ["Older work APIs", "https://dev.sprinklr.com/api1-0"],
+                    ["Live updates (webhooks)", "https://dev.sprinklr.com/sprinklr-webhooks"],
+                    ["App kits", "https://dev.sprinklr.com/sdks"],
+                    ["Community / forums", "https://dev.sprinklr.com/community-apis"],
+                    ["Website chat", "https://dev.sprinklr.com/live-chat-application-apis"],
+                    ["Ready-made recipes", "https://dev.sprinklr.com/integration-blueprints"],
+                    ["Tester pack", "https://dev.sprinklr.com/sprinklr-postman-collection"],
+                  ].map(([label, href]) => (
+                    <li key={href}>
+                      <a href={href} target="_blank" rel="noreferrer" className="text-[#118acb] underline">
+                        {label}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
               </div>
             ) : null}
             <Button onClick={() => setStep(2)}>I created the app — next</Button>
@@ -323,6 +342,23 @@ export function ConnectWizard({
                   />
                 ))}
               </div>
+              {review.apiSurfaces?.length ? (
+                <div className="pt-2">
+                  <p className="text-sm font-medium text-[#0b1220]">Sprinklr developer map</p>
+                  <p className="mt-1 text-xs text-slate-500">
+                    Every official surface from Sprinklr’s developer home. Relay only turns on what this workspace can do.
+                  </p>
+                  {review.apiSurfaces.map((s) => (
+                    <div key={s.title} className="border-b border-slate-100 py-2 last:border-0">
+                      <div className="flex justify-between gap-3 text-sm">
+                        <span className="font-medium text-[#0b1220]">{s.title}</span>
+                        <span className="shrink-0 text-right text-slate-500">{s.status}</span>
+                      </div>
+                      <p className="mt-0.5 text-xs leading-5 text-slate-600">{s.does}</p>
+                    </div>
+                  ))}
+                </div>
+              ) : null}
             </CardBody>
           </Card>
 
