@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 420" width="400" height="420" role="img" aria-label="Relay">
+  <g transform="translate(200 155)">
+    <circle cx="-62" cy="0" r="46" fill="none" stroke="#00bae9" stroke-width="16"/>
+    <circle cx="62" cy="0" r="46" fill="none" stroke="#00bae9" stroke-width="16"/>
+    <circle cx="-62" cy="0" r="12" fill="#faa21b"/>
+    <circle cx="62" cy="0" r="12" fill="#70bf54"/>
+    <path d="M-28 18 C-8 48, 8 -48, 28 -18" fill="none" stroke="#118acb" stroke-width="14" stroke-linecap="round"/>
+  </g>
+  <text x="200" y="330" text-anchor="middle" font-family="ui-sans-serif, system-ui, Segoe UI, Helvetica, Arial, sans-serif" font-size="64" font-weight="700" fill="#0b1220">Relay</text>
+</svg>
