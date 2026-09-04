@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useMemo, useState } from "react";
 import { CAPABILITY_LABEL, type CapabilityStatus, type InstanceReview } from "@/lib/connect/types";
 import { MODULES } from "@/lib/modules/catalog";
@@ -33,19 +34,22 @@ function Row({ label, value }: { label: string; value: string }) {
 
 export function ConnectWizard({
   initialReview,
+  savedReview = null,
   alreadyDone,
   initialStep = 1,
 }: {
   initialReview: InstanceReview | null;
+  savedReview?: InstanceReview | null;
   alreadyDone: boolean;
   initialStep?: number;
 }) {
-  const startStep = alreadyDone || initialReview ? 5 : initialStep;
-  const [step, setStep] = useState(startStep);
-  const [env, setEnv] = useState(initialReview?.environment ?? "prod0");
+  const [step, setStep] = useState(initialStep);
+  const [env, setEnv] = useState(initialReview?.environment ?? savedReview?.environment ?? "prod0");
   const [advanced, setAdvanced] = useState(false);
   const [review, setReview] = useState<InstanceReview | null>(initialReview);
   const [busy, setBusy] = useState(false);
+  const router = useRouter();
+  void alreadyDone;
 
   const doneSteps = review ? 5 : Math.max(0, step - 1);
 
@@ -61,6 +65,7 @@ export function ConnectWizard({
     if (body.review) {
       setReview(body.review);
       setStep(5);
+      router.refresh();
     }
   }
 
@@ -90,6 +95,34 @@ export function ConnectWizard({
           No Sprinklr login needed. This walks the same five steps a live client would see.
         </p>
       </form>
+      {savedReview && !review ? (
+        <p className="text-sm text-slate-600">
+          A demo review is already saved.{" "}
+          <button
+            type="button"
+            className="font-medium text-[#118acb] underline"
+            onClick={() => {
+              setReview(savedReview);
+              setStep(5);
+            }}
+          >
+            Jump to the capability report
+          </button>
+          .
+        </p>
+      ) : null}
+      {review ? (
+        <button
+          type="button"
+          className="text-sm text-slate-500 underline"
+          onClick={() => {
+            setReview(null);
+            setStep(1);
+          }}
+        >
+          Walk through the five steps again
+        </button>
+      ) : null}
 
       <ol className="grid grid-cols-2 gap-2 sm:grid-cols-5">
         {STEPS.map((s) => {
