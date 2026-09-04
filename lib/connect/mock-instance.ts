@@ -1,4 +1,5 @@
 import type { InstanceReview } from "@/lib/connect/types";
+import { SPRINKLR_SURFACES, SURFACE_LABEL } from "@/lib/sprinklr/surfaces";
 
 /** Full sample workspace so Connect demos without OAuth. */
 export function demoInstanceReview(environment = "prod0"): InstanceReview {
@@ -39,6 +40,11 @@ export function demoInstanceReview(environment = "prod0"): InstanceReview {
       { name: "Customer records (CRM link)", on: false, note: "Not linked yet" },
       { name: "Listening", on: false, note: "Sprinklr Support must turn this on" },
     ],
+    apiSurfaces: SPRINKLR_SURFACES.map((s) => ({
+      title: s.title,
+      does: s.does,
+      status: SURFACE_LABEL[s.status],
+    })),
     capabilities: [
       {
         moduleId: "connect",
