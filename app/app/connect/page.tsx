@@ -13,15 +13,17 @@ export default async function ConnectPage({
   if (!session) redirect("/login");
   const { done, oauth, step } = await searchParams;
   const tenant = await prisma.tenant.findUniqueOrThrow({ where: { id: session.tenantId } });
-  const review = await loadInstanceReview(session.tenantId);
-  const initialStep = review || done === "1"
+  const saved = await loadInstanceReview(session.tenantId);
+  const showSaved = done === "1" || step === "5";
+  const initialStep = showSaved
     ? 5
     : oauth === "1"
       ? 3
       : Number(step) || 1;
   return (
     <ConnectWizard
-      initialReview={review}
+      initialReview={showSaved ? saved : null}
+      savedReview={saved}
       alreadyDone={Boolean(tenant.connectCompletedAt) || done === "1"}
       initialStep={initialStep}
     />

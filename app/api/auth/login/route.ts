@@ -62,7 +62,7 @@ export async function POST(req: Request) {
     email: user.email,
     name: user.name,
   };
-  const dest = "/app";
+  const dest = "/app/connect";
   const res = form
     ? NextResponse.redirect(new URL(dest, req.url), 303)
     : NextResponse.json({ ok: true, next: dest });

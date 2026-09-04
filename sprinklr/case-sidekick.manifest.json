@@ -1,0 +1,22 @@
+{
+  "name": "Relay Case Sidekick",
+  "appKey": "relay-case-sidekick",
+  "description": "Order, SKU, and CRM context on the Sprinklr case record page so agents do not tab-hop.",
+  "entityType": "CASE",
+  "placement": "RECORD_PAGE",
+  "surfaces": ["RECORD_PAGE"],
+  "iframe": {
+    "url": "/widget/case",
+    "width": 380,
+    "height": "100%",
+    "query": {
+      "caseId": "{{case.id}}",
+      "workspaceId": "{{workspace.id}}"
+    }
+  },
+  "permissions": ["CASE_READ"],
+  "auth": {
+    "mode": "inherit_user",
+    "notes": "API key inherits the connecting Sprinklr user's roles. Demo mode needs no OAuth."
+  }
+}
