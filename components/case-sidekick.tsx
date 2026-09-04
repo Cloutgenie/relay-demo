@@ -84,9 +84,22 @@ export function CaseSidekickPanel({ ctx }: { ctx: CaseContext }) {
           )}
         </section>
 
+        <section className="rounded-xl border border-slate-200 bg-[#eef8ea] p-3">
+          <p className="text-[11px] font-semibold uppercase tracking-wide text-[#3d7a2c]">
+            Suggested next step
+          </p>
+          <p className="mt-1 text-sm leading-6 text-[#0b1220]">
+            {ctx.caseId === "case_2091"
+              ? "Offer a replacement filter overnight. The kettle can stay in transit."
+              : ctx.caseId === "case_2044"
+                ? "Confirm dishwasher-safe on the bowl and update the listing note."
+                : "Thank them and add to the Spring Launch advocate list."}
+          </p>
+        </section>
+
         <p className="text-[11px] text-slate-400">
           {ctx.source === "mock"
-            ? "Mock CRM / order data. Live connectors stay off until CRM_API_URL and OMS_API_URL are set."
+            ? "Mock CRM / order data for the case record page. Live connectors stay off until they are linked."
             : "Loaded from live connectors."}
         </p>
       </div>
