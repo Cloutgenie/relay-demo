@@ -4,8 +4,8 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 const PRIMARY = [
-  { href: "/app", label: "Home" },
   { href: "/app/connect", label: "Connect" },
+  { href: "/app", label: "Home" },
   { href: "/app/queue", label: "Needs review" },
   { href: "/app/sidekick", label: "Case Sidekick" },
 ];

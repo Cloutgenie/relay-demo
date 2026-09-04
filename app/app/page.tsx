@@ -5,13 +5,14 @@ import { deriveStatus } from "@/lib/status";
 import { ensureDemoWorkspace } from "@/lib/seed-demo";
 import { DashboardClient } from "@/components/dashboard-client";
 import { HomeConsole } from "@/components/home-console";
+import { loadInstanceReview } from "@/lib/connect/server";
 
 export default async function DashboardPage() {
   const session = await getSession();
   if (!session) redirect("/login");
   await ensureDemoWorkspace();
 
-  const [tenant, fieldReady, pending, recent] = await Promise.all([
+  const [tenant, fieldReady, pending, recent, review] = await Promise.all([
     prisma.tenant.findUniqueOrThrow({ where: { id: session.tenantId } }),
     prisma.fieldMap.count({
       where: { tenantId: session.tenantId, existsInTenant: true },
@@ -24,6 +25,7 @@ export default async function DashboardPage() {
       orderBy: { createdAt: "desc" },
       take: 8,
     }),
+    loadInstanceReview(session.tenantId),
   ]);
   const last = recent[0] ?? null;
 
@@ -49,7 +51,7 @@ export default async function DashboardPage() {
 
   return (
     <div className="space-y-8">
-      <HomeConsole status={status} pending={pending} tenantName={tenant.name} />
+      <HomeConsole status={status} pending={pending} tenantName={tenant.name} review={review} />
       <div>
         <h2 className="mb-3 text-lg font-semibold">Taxonomy Autofill</h2>
         <DashboardClient
