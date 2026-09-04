@@ -1,0 +1,4 @@
+import { ListeningClient } from "@/components/relay-modules";
+export default function Page() {
+  return <ListeningClient />;
+}
